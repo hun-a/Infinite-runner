@@ -8,6 +8,11 @@ export default class Game extends Phaser.Scene {
 
   preload() {
     this.load.image('background', 'house/bg_repeat_340x640.png');
+    this.load.atlas(
+      'rocket-mouse',
+      'characters/rocket-mouse.png',
+      'characters/rocket-mouse.json'
+    );
   }
 
   create() {
@@ -16,5 +21,6 @@ export default class Game extends Phaser.Scene {
     const height = this.scale.height;
 
     this.add.tileSprite(0, 0, width, height, 'background').setOrigin(0);
+    this.add.sprite(width * 0.5, height * 0.5, 'rocket-mouse', 'rocketmouse_fly01.png');
   }
 }
