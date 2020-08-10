@@ -11,6 +11,10 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(0, 0, 'background').setOrigin(0);
+    // Store the width and height of the game screen
+    const width = this.scale.width;
+    const height = this.scale.height;
+
+    this.add.tileSprite(0, 0, width, height, 'background').setOrigin(0);
   }
 }
