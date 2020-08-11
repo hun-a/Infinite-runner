@@ -1,15 +1,23 @@
 import Phaser from 'phaser';
 
+import SceneKeys from '~/consts/SceneKeys';
+import TextureKeys from '~/consts/TextureKeys';
+import AnimationKeys from '~/consts/AnimationKeys';
+
 export default class Preloader extends Phaser.Scene {
 
   constructor() {
-    super('preloader');
+    super(SceneKeys.Preloader);
   }
 
   preload() {
-    this.load.image('background', 'house/bg_repeat_340x640.png');
+    this.load.image(
+      TextureKeys.Background,
+      'house/bg_repeat_340x640.png'
+    );
+
     this.load.atlas(
-      'rocket-mouse',
+      TextureKeys.RocketMouse,
       'characters/rocket-mouse.png',
       'characters/rocket-mouse.json'
     );
@@ -18,8 +26,8 @@ export default class Preloader extends Phaser.Scene {
   create() {
     // Define the Animation
     this.anims.create({
-      key: 'rocket-mouse-run',
-      frames: this.anims.generateFrameNames('rocket-mouse', {
+      key: AnimationKeys.RocketMouseRun,
+      frames: this.anims.generateFrameNames(TextureKeys.RocketMouse, {
         start: 1,
         end: 4,
         prefix: 'rocketmouse_run',
