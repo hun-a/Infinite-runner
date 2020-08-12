@@ -8,6 +8,8 @@ export default class Game extends Phaser.Scene {
 
   private background!: Phaser.GameObjects.TileSprite;
 
+  private mouseHole!: Phaser.GameObjects.Image;
+
   constructor() {
     super(SceneKeys.Game);
   }
@@ -21,7 +23,7 @@ export default class Game extends Phaser.Scene {
       .setOrigin(0, 0)
       .setScrollFactor(0, 0);
 
-    this.add.image(
+    this.mouseHole = this.add.image(
       Phaser.Math.Between(900, 1500),
       501,
       TextureKeys.MouseHole
@@ -48,5 +50,15 @@ export default class Game extends Phaser.Scene {
 
   update(time: number, delta: number): void {
     this.background.setTilePosition(this.cameras.main.scrollX);
+    this.wrapMouseHole();
+  }
+
+  private wrapMouseHole() {
+    const scrollX = this.cameras.main.scrollX;
+    const rightEdge = scrollX + this.scale.width;
+
+    if (this.mouseHole.x + this.mouseHole.width < scrollX) {
+      this.mouseHole.x = Phaser.Math.Between(rightEdge + 100, rightEdge + 1000);
+    }
   }
 }
