@@ -14,6 +14,10 @@ export default class Game extends Phaser.Scene {
 
   private window2!: Phaser.GameObjects.Image;
 
+  private bookcase1!: Phaser.GameObjects.Image;
+
+  private bookcase2!: Phaser.GameObjects.Image;
+
   constructor() {
     super(SceneKeys.Game);
   }
@@ -45,6 +49,18 @@ export default class Game extends Phaser.Scene {
       TextureKeys.Window2
     );
 
+    this.bookcase1 = this.add.image(
+      Phaser.Math.Between(2200, 2700),
+      381,
+      TextureKeys.Bookcase1
+    );
+
+    this.bookcase2 = this.add.image(
+      Phaser.Math.Between(2900, 3400),
+      288,
+      TextureKeys.Bookcase2
+    );
+
     const mouse = this.physics.add.sprite(
       width * 0.5,
       height - 30,
@@ -72,6 +88,9 @@ export default class Game extends Phaser.Scene {
 
     // add for windows
     this.wrapWindows();
+
+    // add for bookcase
+    this.wrapBookcases()
   }
 
   private wrapMouseHole() {
@@ -102,6 +121,27 @@ export default class Game extends Phaser.Scene {
         this.window1.x + width,
         this.window1.x + width + 800
       );
+    }
+  }
+
+  private wrapBookcases() {
+    const scrollX = this.cameras.main.scrollX;
+    const rightEdge = scrollX + this.scale.width;
+
+    let width = this.bookcase1.width * 2;
+    if (this.bookcase1.x + width < scrollX) {
+      this.bookcase1.x = Phaser.Math.Between(
+        rightEdge + width,
+        rightEdge + width + 800
+      );
+    }
+
+    width = this.bookcase2.width;
+    if (this.bookcase2.x + width < scrollX) {
+      this.bookcase2.x = Phaser.Math.Between(
+        rightEdge + width,
+        rightEdge + width + 800
+      )
     }
   }
 }
