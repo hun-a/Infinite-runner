@@ -21,6 +21,12 @@ export default class Game extends Phaser.Scene {
       .setOrigin(0, 0)
       .setScrollFactor(0, 0);
 
+    this.add.image(
+      Phaser.Math.Between(900, 1500),
+      501,
+      TextureKeys.MouseHole
+    );
+
     const mouse = this.physics.add.sprite(
       width * 0.5,
       height - 30,
