@@ -21,6 +21,9 @@ export default class Preloader extends Phaser.Scene {
       'house/object_mousehole.png'
     );
 
+    this.load.image(TextureKeys.Window1, 'house/object_window1.png');
+    this.load.image(TextureKeys.Window2, 'house/object_window2.png');
+
     this.load.atlas(
       TextureKeys.RocketMouse,
       'characters/rocket-mouse.png',

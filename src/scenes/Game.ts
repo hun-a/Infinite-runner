@@ -10,6 +10,10 @@ export default class Game extends Phaser.Scene {
 
   private mouseHole!: Phaser.GameObjects.Image;
 
+  private window1!: Phaser.GameObjects.Image;
+
+  private window2!: Phaser.GameObjects.Image;
+
   constructor() {
     super(SceneKeys.Game);
   }
@@ -27,6 +31,18 @@ export default class Game extends Phaser.Scene {
       Phaser.Math.Between(900, 1500),
       501,
       TextureKeys.MouseHole
+    );
+
+    this.window1 = this.add.image(
+      Phaser.Math.Between(900, 1300),
+      200,
+      TextureKeys.Window1
+    );
+
+    this.window2 = this.add.image(
+      Phaser.Math.Between(1600, 2000),
+      200,
+      TextureKeys.Window2
     );
 
     const mouse = this.physics.add.sprite(
@@ -50,7 +66,12 @@ export default class Game extends Phaser.Scene {
 
   update(time: number, delta: number): void {
     this.background.setTilePosition(this.cameras.main.scrollX);
+
+    // For mouse holes
     this.wrapMouseHole();
+
+    // add for windows
+    this.wrapWindows();
   }
 
   private wrapMouseHole() {
@@ -59,6 +80,28 @@ export default class Game extends Phaser.Scene {
 
     if (this.mouseHole.x + this.mouseHole.width < scrollX) {
       this.mouseHole.x = Phaser.Math.Between(rightEdge + 100, rightEdge + 1000);
+    }
+  }
+
+  private wrapWindows() {
+    const scrollX = this.cameras.main.scrollX;
+    const rightEdge = scrollX + this.scale.width;
+
+    // multiply by 2 to add some more padding
+    let width = this.window1.width * 2;
+    if (this.window1.x + width < scrollX) {
+      this.window1.x = Phaser.Math.Between(
+        rightEdge + width,
+        rightEdge + width + 800
+      );
+    }
+
+    width = this.window2.width;
+    if (this.window2.x + width < scrollX) {
+      this.window2.x = Phaser.Math.Between(
+        this.window1.x + width,
+        this.window1.x + width + 800
+      );
     }
   }
 }
