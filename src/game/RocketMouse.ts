@@ -13,5 +13,11 @@ export default class RocketMouse extends Phaser.GameObjects.Container {
       .play(AnimationKeys.RocketMouseRun);
 
     this.add(mouse);
+
+    scene.physics.add.existing(this);
+
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setSize(mouse.width, mouse.height);
+    body.setOffset(mouse.width * -0.5, -mouse.height);
   }
 }
