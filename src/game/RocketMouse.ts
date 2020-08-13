@@ -12,6 +12,10 @@ export default class RocketMouse extends Phaser.GameObjects.Container {
       .setOrigin(0.5, 1)
       .play(AnimationKeys.RocketMouseRun);
 
+    const flames = scene.add.sprite(-63, -15, TextureKeys.RocketMouse)
+      .play(AnimationKeys.RocketFlamesOn);
+
+    this.add(flames);
     this.add(mouse);
 
     scene.physics.add.existing(this);
