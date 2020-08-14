@@ -49,7 +49,21 @@ export default class Preloader extends Phaser.Scene {
       repeat: -1
     });
 
-    this.scene.start('game');
+    this.anims.create({
+      key: AnimationKeys.RocketMouseFall,
+      frames: [{
+        key: TextureKeys.RocketMouse,
+        frame: 'rocketmouse_fall01.png'
+      }]
+    });
+
+    this.anims.create({
+      key: AnimationKeys.RocketMouseFly,
+      frames: [{
+        key: TextureKeys.RocketMouse,
+        frame: 'rocketmouse_fly01.png'
+      }]
+    });
 
     this.anims.create({
       key: AnimationKeys.RocketFlamesOn,
