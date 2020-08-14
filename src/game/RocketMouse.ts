@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 
 import TextureKeys from "~/consts/TextureKeys";
 import AnimationKeys from "~/consts/AnimationKeys";
+import LaserObstacle from "~/game/LaserObstacle";
 
 export default class RocketMouse extends Phaser.GameObjects.Container {
 

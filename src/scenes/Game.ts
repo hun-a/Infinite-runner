@@ -3,6 +3,7 @@ import * as Phaser from 'phaser';
 import SceneKeys from "~/consts/SceneKeys";
 import TextureKeys from "~/consts/TextureKeys";
 import RocketMouse from "~/game/RocketMouse";
+import LaserObstacle from "~/game/LaserObstacle";
 
 export default class Game extends Phaser.Scene {
 
@@ -82,6 +83,9 @@ export default class Game extends Phaser.Scene {
 
     this.cameras.main.startFollow(mouse);
     this.cameras.main.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height);
+
+    const laserObstacle = new LaserObstacle(this, 900, 100);
+    this.add.existing(laserObstacle);
   }
 
   update(time: number, delta: number): void {
