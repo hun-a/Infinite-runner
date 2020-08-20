@@ -23,6 +23,8 @@ export default class Game extends Phaser.Scene {
 
   private windows: Phaser.GameObjects.Image[] = [];
 
+  private laserObstacle!: LaserObstacle;
+
   constructor() {
     super(SceneKeys.Game);
   }
@@ -84,8 +86,8 @@ export default class Game extends Phaser.Scene {
     this.cameras.main.startFollow(mouse);
     this.cameras.main.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height);
 
-    const laserObstacle = new LaserObstacle(this, 900, 100);
-    this.add.existing(laserObstacle);
+    this.laserObstacle = new LaserObstacle(this, 900, 100);
+    this.add.existing(this.laserObstacle);
   }
 
   update(time: number, delta: number): void {
@@ -98,7 +100,10 @@ export default class Game extends Phaser.Scene {
     this.wrapWindows();
 
     // add for bookcase
-    this.wrapBookcases()
+    this.wrapBookcases();
+
+    // add for Laser Obstacle
+    this.wrapLaserObstacle();
   }
 
   private wrapMouseHole() {
@@ -165,6 +170,17 @@ export default class Game extends Phaser.Scene {
 
       const overlap = this.windows.find(win => Math.abs(this.bookcase2.x - win.x) <= this.bookcase2.width);
       this.bookcase2.visible = !overlap;
+    }
+  }
+
+  private wrapLaserObstacle() {
+    const scrollX = this.cameras.main.scrollX;
+    const rightEdge = scrollX + this.scale.width;
+
+    const width = this.laserObstacle.width;
+    if (this.laserObstacle.x + width < scrollX) {
+      this.laserObstacle.x = Phaser.Math.Between(rightEdge + width, rightEdge + width + 1000);
+      this.laserObstacle.y = Phaser.Math.Between(0, 300);
     }
   }
 }
